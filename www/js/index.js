@@ -6,17 +6,17 @@ var pgReady = $.Deferred();
 var app =
 {
   callback: null,
-  initialize: function(callback) 
+  initialize: function(callback)
   {
     this.callback = callback;
-    
+
     //If testing on a desktop, automatically resolve PhoneGap
     if (document.URL.match(/^https?:/) || document.URL.match(/^file:/))
     {
       pgReady.resolve();
     }
     //Else if on a mobile device, add event listener for deviceready
-    else 
+    else
     {
       document.addEventListener("deviceready", onDeviceReady, false);
     }
@@ -45,206 +45,206 @@ function onDeviceReady()
 	pgReady.resolve();
 }
 
-app.initialize(function() 
+app.initialize(function()
 {
 	$("a.initialize").on("vclick", initialize);
-  
+
   $("a.enable").on("vclick", enable);
-  
+
   $("a.disable").on("vclick", disable);
-  
+
   $("a.startScan").on("vclick", startScan);
-  
+
   $("a.stopScan").on("vclick", stopScan);
-  
+
   $("a.retrieveConnected").on("vclick", retrieveConnected);
-  
+
   $("a.isInitialized").on("vclick", isInitialized);
-  
+
   $("a.isEnabled").on("vclick", isEnabled);
 
   $("a.isScanning").on("vclick", isScanning);
-  
+
   $(document).on("vclick", "a.connect", function()
   {
   	var address = getAddress($(this));
-  	
+
   	connect(address);
-  	
+
   	return false;
   });
-  
+
   $(document).on("vclick", "a.reconnect", function()
   {
   	var address = getAddress($(this));
-  	
+
   	reconnect(address);
-  	
+
   	return false;
   });
-  
+
   $(document).on("vclick", "a.disconnect", function()
   {
   	var address = getAddress($(this));
-  	
+
   	disconnect(address);
-  	
+
   	return false;
   });
-  
+
   $(document).on("vclick", "a.close", function()
   {
   	var address = getAddress($(this));
-  	
+
   	close(address);
-  	
+
   	return false;
   });
-  
+
   $(document).on("vclick", "a.discover", function()
   {
   	var address = getAddress($(this));
-  	
+
   	discover(address);
-  	
+
   	return false;
   });
-  
+
   $(document).on("vclick", "a.services", function()
   {
   	var address = getAddress($(this));
-  	
+
   	services(address);
-  	
+
   	return false;
   });
-  
+
   $(document).on("vclick", "a.rssi", function()
   {
   	var address = getAddress($(this));
-  	
+
   	rssi(address);
-  	
+
   	return false;
   });
-  
+
   $(document).on("vclick", "a.isConnected", function()
   {
   	var address = getAddress($(this));
-  	
+
   	isConnected(address);
-  	
+
   	return false;
   });
-  
+
   $(document).on("vclick", "a.isDiscovered", function()
   {
   	var address = getAddress($(this));
-  	
+
   	isDiscovered(address);
-  	
+
   	return false;
   });
-  
+
   $(document).on("vclick", "a.characteristics", function()
   {
   	var address = getAddress($(this));
   	var serviceUuid = getServiceUuid($(this));
-  	
+
   	characteristics(address, serviceUuid);
-  	
+
   	return false;
   });
-  
+
   $(document).on("vclick", "a.read", function()
   {
   	var address = getAddress($(this));
   	var serviceUuid = getServiceUuid($(this));
   	var characteristicUuid = getCharacteristicUuid($(this));
-  	
+
   	read(address, serviceUuid, characteristicUuid);
-  	
+
   	return false;
   });
-  
+
   $(document).on("vclick", "a.subscribe", function()
   {
   	var address = getAddress($(this));
   	var serviceUuid = getServiceUuid($(this));
   	var characteristicUuid = getCharacteristicUuid($(this));
-  	
+
   	subscribe(address, serviceUuid, characteristicUuid);
-  	
+
   	return false;
   });
-  
+
   $(document).on("vclick", "a.unsubscribe", function()
   {
   	var address = getAddress($(this));
   	var serviceUuid = getServiceUuid($(this));
   	var characteristicUuid = getCharacteristicUuid($(this));
-  	
+
   	unsubscribe(address, serviceUuid, characteristicUuid);
-  	
+
   	return false;
   });
-  
+
   $(document).on("vclick", "a.write", function()
   {
   	var address = getAddress($(this));
   	var serviceUuid = getServiceUuid($(this));
   	var characteristicUuid = getCharacteristicUuid($(this));
-  	
+
   	var bytes = new Uint8Array(1);
   	bytes[0] = 0;
   	var value = bluetoothle.bytesToEncodedString(bytes);
-  	
+
   	write(address, serviceUuid, characteristicUuid, value);
 
       $('.ble').html(address, serviceUuid, characteristicUuid, value);
 
   	return false;
   });
-  
+
   $(document).on("vclick", "a.descriptors", function()
   {
   	var address = getAddress($(this));
   	var serviceUuid = getServiceUuid($(this));
   	var characteristicUuid = getCharacteristicUuid($(this));
-  	
+
   	descriptors(address, serviceUuid, characteristicUuid);
-  	
+
   	return false;
   });
-  
+
   $(document).on("vclick", "a.readDescriptor", function()
   {
   	var address = getAddress($(this));
   	var serviceUuid = getServiceUuid($(this));
   	var characteristicUuid = getCharacteristicUuid($(this));
   	var descriptorUuid = getDescriptorUuid($(this));
-  	
+
   	readDescriptor(address, serviceUuid, characteristicUuid, descriptorUuid);
-  	
+
   	return false;
   });
-  
+
   $(document).on("vclick", "a.writeDescriptor", function()
   {
   	var address = getAddress($(this));
   	var serviceUuid = getServiceUuid($(this));
   	var characteristicUuid = getCharacteristicUuid($(this));
   	var descriptorUuid = getDescriptorUuid($(this));
-  	
+
   	var bytes = new Uint8Array(1);
   	bytes[0] = 0;
   	var value = bluetoothle.bytesToEncodedString(bytes);
-  	
+
   	writeDescriptor(address, serviceUuid, characteristicUuid, descriptorUuid, value);
-  	
+
   	return false;
   });
-  
+
   $(document).on("vclick", ".toggle", function()
   {
   	var $item = $(this);
@@ -267,7 +267,8 @@ function initialize()
 	console.log("Initialize : " + JSON.stringify(paramsObj));
 	
 	bluetoothle.initialize(initializeSuccess, initializeError, paramsObj);
-	
+
+    $('.ble').html(JSON.stringify(paramsObj));
 	return false;
 }
 
