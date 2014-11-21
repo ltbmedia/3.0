@@ -1530,7 +1530,7 @@ jasmine.Matchers.ObjectContaining.prototype.jasmineToString = function () {
   return "<jasmine.objectContaining(" + jasmine.pp(this.sample) + ")>";
 };
 // Mock setTimeout, clearTimeout
-// Contributed by Pivotal Computer Systems, www.pivotalsf.com
+// Contributed by Pivotal Computer Systems, www_OLD.pivotalsf.com
 
 jasmine.FakeTimer = function() {
   this.reset();
